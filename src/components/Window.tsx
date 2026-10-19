@@ -121,41 +121,43 @@ export const Window: React.FC<WindowProps> = ({
         height: `${size.height}px`,
         zIndex,
       }}
-      className={`absolute top-0 left-0 flex flex-col rounded-xl overflow-hidden border border-slate-700/60 bg-slate-900/95 shadow-2xl backdrop-blur-md transition-shadow select-none ${
-        isMaximized ? 'rounded-none border-x-0' : ''
+      className={`absolute top-0 left-0 flex flex-col rounded-xl overflow-hidden border border-slate-700/60 bg-slate-900/95 shadow-2xl backdrop-blur-xl transition-shadow select-none ${
+        isMaximized ? 'rounded-none border-x-0 !top-0 !left-0' : ''
       }`}
     >
-      {/* Barre de titre de la fenêtre */}
+      {/* Barre de titre Windows 11 */}
       <div
         onMouseDown={handleMouseDownHeader}
         onDoubleClick={toggleMaximize}
-        className="flex items-center justify-between px-3.5 py-2.5 bg-slate-800/80 border-b border-slate-700/50 cursor-move text-slate-200"
+        className="flex items-center justify-between h-9 pl-3.5 pr-0 bg-slate-900/90 border-b border-slate-800/80 cursor-move text-slate-200"
       >
-        <div className="flex items-center gap-2.5 min-w-0">
-          <span className="text-slate-400 shrink-0">{icon}</span>
-          <span className="text-xs font-semibold tracking-wide truncate text-slate-100">{title}</span>
+        <div className="flex items-center gap-2.5 min-w-0 pointer-events-none">
+          <span className="shrink-0">{icon}</span>
+          <span className="text-xs font-semibold tracking-normal truncate text-slate-200 font-sans">
+            {title}
+          </span>
         </div>
 
-        {/* Boutons de contrôle de la fenêtre (Close, Minimize, Maximize) */}
-        <div className="flex items-center gap-1.5 shrink-0" onMouseDown={e => e.stopPropagation()}>
+        {/* Boutons de contrôle de fenêtre Windows 11 (-, ▢, ✕) */}
+        <div className="flex items-stretch h-full shrink-0" onMouseDown={e => e.stopPropagation()}>
           <button
             onClick={onMinimize}
-            title="Minimiser"
-            className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition-colors"
+            title="Réduire"
+            className="w-11 h-full flex items-center justify-center hover:bg-white/10 text-slate-400 hover:text-slate-100 transition-colors"
           >
             <Minus className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={toggleMaximize}
-            title={isMaximized ? 'Restaurer' : 'Agrandir'}
-            className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-slate-700 text-slate-400 hover:text-slate-200 transition-colors"
+            title={isMaximized ? 'Niveau inférieur' : 'Agrandir'}
+            className="w-11 h-full flex items-center justify-center hover:bg-white/10 text-slate-400 hover:text-slate-100 transition-colors"
           >
             {isMaximized ? <RotateCcw className="w-3 h-3" /> : <Square className="w-3 h-3" />}
           </button>
           <button
             onClick={onClose}
             title="Fermer"
-            className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-rose-600/80 text-slate-400 hover:text-white transition-colors"
+            className="w-11 h-full flex items-center justify-center hover:bg-[#e81123] text-slate-400 hover:text-white transition-colors"
           >
             <X className="w-3.5 h-3.5" />
           </button>
@@ -163,7 +165,7 @@ export const Window: React.FC<WindowProps> = ({
       </div>
 
       {/* Contenu principal de la fenêtre */}
-      <div className="flex-1 overflow-hidden relative bg-slate-950/80 text-slate-100">
+      <div className="flex-1 overflow-hidden relative bg-slate-950 text-slate-100">
         {children}
       </div>
 
@@ -173,7 +175,7 @@ export const Window: React.FC<WindowProps> = ({
           onMouseDown={handleMouseDownResize}
           className="absolute bottom-0 right-0 w-4 h-4 cursor-se-resize z-20 flex items-end justify-end p-0.5"
         >
-          <svg className="w-2.5 h-2.5 text-slate-500/60" viewBox="0 0 6 6" fill="currentColor">
+          <svg className="w-2.5 h-2.5 text-slate-600" viewBox="0 0 6 6" fill="currentColor">
             <circle cx="5" cy="5" r="1" />
             <circle cx="5" cy="2" r="1" />
             <circle cx="2" cy="5" r="1" />

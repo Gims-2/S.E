@@ -34,8 +34,14 @@ export const TopBar: React.FC<TopBarProps> = ({
     <header className="flex items-center justify-between gap-8 px-6 py-2.5 bg-slate-900/90 border-b border-slate-800/80 backdrop-blur-md z-50 select-none shrink-0 h-12">
       {/* Zone 1: Single text element wordmark */}
       <div className="flex items-center gap-3 shrink-0">
-        <span className="text-sm font-bold tracking-tight text-slate-100 whitespace-nowrap shrink-0 font-sans">
-          KoreOS 2.4
+        <span className="text-sm font-bold tracking-tight text-slate-100 whitespace-nowrap shrink-0 font-sans flex items-center gap-2">
+          <div className="grid grid-cols-2 gap-[2px] w-3.5 h-3.5">
+            <div className="bg-sky-400 rounded-[0.5px]" />
+            <div className="bg-sky-400 rounded-[0.5px]" />
+            <div className="bg-sky-400 rounded-[0.5px]" />
+            <div className="bg-sky-400 rounded-[0.5px]" />
+          </div>
+          <span>KoreOS · Windows 11</span>
         </span>
         <span className="text-xs text-slate-500 font-mono hidden md:inline">
           x86_64
@@ -50,7 +56,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             currentView === 'desktop' ? 'text-cyan-400 font-semibold' : ''
           }`}
         >
-          Bureau Graphique
+          Bureau Windows 11
         </button>
         <button
           onClick={() => onSelectView('cli')}

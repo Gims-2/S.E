@@ -13,6 +13,17 @@ export default function App() {
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [resetMessage, setResetMessage] = useState<string | null>(null);
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'F2' || (e.altKey && e.key.toLowerCase() === 'g')) {
+        e.preventDefault();
+        setViewMode(prev => (prev === 'desktop' ? 'cli' : 'desktop'));
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const handleResetOS = () => {
     vfsInstance.reset();
     kernelInstance.logSyscall('sys_reboot', 'magic=0xFEE1DEAD, cmd=LINUX_REBOOT_CMD_RESTART', '0', 'init');
@@ -71,7 +82,10 @@ export default function App() {
       {/* Contenu selon le mode d'affichage choisi */}
       <main className="flex-1 w-full h-[calc(100%-48px)] overflow-hidden relative">
         {viewMode === 'desktop' && (
-          <Desktop toggleViewMode={setViewMode} />
+          <Desktop
+            toggleViewMode={setViewMode}
+            onResetOS={() => setShowResetConfirm(true)}
+          />
         )}
 
         {viewMode === 'cli' && (
@@ -83,9 +97,10 @@ export default function App() {
               </span>
               <button
                 onClick={() => setViewMode('desktop')}
-                className="px-2.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-medium"
+                className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-950 border border-cyan-700/70 hover:bg-cyan-900 text-cyan-200 text-xs font-medium transition-colors"
               >
-                Basculer vers le Bureau GUI
+                <Monitor className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Basculer vers le Bureau GUI (ou tapez 'gui' / F2)</span>
               </button>
             </div>
             <div className="flex-1 overflow-hidden">

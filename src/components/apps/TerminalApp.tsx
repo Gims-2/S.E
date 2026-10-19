@@ -140,6 +140,7 @@ export const TerminalApp: React.FC<TerminalAppProps> = ({
   };
 
   const quickCommands = [
+    { label: 'gui (Bureau)', cmd: 'gui' },
     { label: 'ls -la', cmd: 'ls -la' },
     { label: 'cat guide', cmd: 'cat /home/user/architecture_os.md' },
     { label: 'ps (tâches)', cmd: 'ps' },

@@ -349,10 +349,13 @@ export function executeCommand(rawCommand: string, context: ExecutionContext): T
     }
 
     case 'gui':
-    case 'desktop': {
+    case 'desktop':
+    case 'startx':
+    case 'x11':
+    case 'wm': {
       if (toggleViewMode) {
         toggleViewMode('desktop');
-        resultLines = [{ id: uid(), type: 'success', content: 'Bascule vers l\'environnement graphique de bureau (GUI Compositor)...' }];
+        resultLines = [{ id: uid(), type: 'success', content: 'Démarrage du serveur d\'affichage KoreCompositor (VBE LFB) et bascule vers le Bureau GUI...' }];
       }
       break;
     }
@@ -362,6 +365,9 @@ export function executeCommand(rawCommand: string, context: ExecutionContext): T
       if (!targetApp) {
         resultLines = [{ id: uid(), type: 'error', content: 'Usage: open <editor | files | monitor | guide | framebuffer | snake | terminal>' }];
         break;
+      }
+      if (toggleViewMode) {
+        toggleViewMode('desktop');
       }
       if (openAppWindow) {
         openAppWindow(targetApp);
@@ -379,6 +385,9 @@ export function executeCommand(rawCommand: string, context: ExecutionContext): T
         break;
       }
       const resolved = vfsInstance.resolvePath(cwd, targetFile);
+      if (toggleViewMode) {
+        toggleViewMode('desktop');
+      }
       if (openAppWindow) {
         openAppWindow('editor', resolved);
         resultLines = [{ id: uid(), type: 'success', content: `Ouverture de '${resolved}' dans l'éditeur graphique KoreEdit...` }];
@@ -387,6 +396,9 @@ export function executeCommand(rawCommand: string, context: ExecutionContext): T
     }
 
     case 'guide': {
+      if (toggleViewMode) {
+        toggleViewMode('desktop');
+      }
       if (openAppWindow) {
         openAppWindow('guide');
         resultLines = [{ id: uid(), type: 'success', content: 'Ouverture du guide complet de conception d\'un système d\'exploitation hybride...' }];
