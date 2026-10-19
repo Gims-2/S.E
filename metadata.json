@@ -1,0 +1,6 @@
+{
+  "name": "KoreOS - Architecture & Simulateur d'OS (CLI + GUI)",
+  "description": "Apprenez et expérimentez la conception d'un système d'exploitation moderne combinant un terminal Unix et une interface graphique fenêtrée avec son VFS, ordonnanceur et framebuffer.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
